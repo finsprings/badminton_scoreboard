@@ -100,10 +100,10 @@ void handle_button_press() {
   // Ask the debouncers whether the buttons have changed from
   // not being pressed to being pressed (we don't care
   // about the change from pressed to not pressed).
-  bool a_pressed = a.update() && (a.read() == HIGH);
-  bool b_pressed = b.update() && (b.read() == HIGH);
-  bool c_pressed = c.update() && (c.read() == HIGH);
-  bool d_pressed = d.update() && (d.read() == HIGH);
+  const bool a_pressed = a.update() && (a.read() == HIGH);
+  const bool b_pressed = b.update() && (b.read() == HIGH);
+  const bool c_pressed = c.update() && (c.read() == HIGH);
+  const bool d_pressed = d.update() && (d.read() == HIGH);
 
   const bool any_pressed = a_pressed || b_pressed || c_pressed || d_pressed;
 
