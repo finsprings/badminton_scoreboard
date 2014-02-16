@@ -58,7 +58,7 @@ static Bounce b;
 static Bounce c;
 static Bounce d;
 
-static Adafruit_7segment matrix;
+static Adafruit_7segment display;
 
 static uint8_t left_player_score = 0;
 static uint8_t right_player_score = 0;
@@ -74,13 +74,15 @@ void loop() {
   handle_button_press();
 }
 
+
 void init_display() {
-  matrix.begin(DISPLAY_I2C_ADDRESS);
-  matrix.setBrightness(MAXIMUM_BRIGHTNESS);
-  matrix.writeDigitRaw(DOTS_DIGIT, CENTER_COLON_DOT_TYPE);
+  display.begin(DISPLAY_I2C_ADDRESS);
+  display.setBrightness(MAXIMUM_BRIGHTNESS);
+  display.writeDigitRaw(DOTS_DIGIT, CENTER_COLON_DOT_TYPE);
 
   update_display();
 }
+
 
 void init_buttons() {
   pinMode(A_PIN, INPUT);
@@ -147,15 +149,15 @@ void handle_button_press() {
  * If the game is over make the display blink.
  */
 void update_display() {
-  matrix.writeDigitNum(LEFT_PLAYER_TENS_DIGIT, left_player_score / 10);
-  matrix.writeDigitNum(LEFT_PLAYER_ONES_DIGIT, left_player_score % 10);
+  display.writeDigitNum(LEFT_PLAYER_TENS_DIGIT, left_player_score / 10);
+  display.writeDigitNum(LEFT_PLAYER_ONES_DIGIT, left_player_score % 10);
 
-  matrix.writeDigitNum(RIGHT_PLAYER_TENS_DIGIT, right_player_score / 10);
-  matrix.writeDigitNum(RIGHT_PLAYER_ONES_DIGIT, right_player_score % 10);
+  display.writeDigitNum(RIGHT_PLAYER_TENS_DIGIT, right_player_score / 10);
+  display.writeDigitNum(RIGHT_PLAYER_ONES_DIGIT, right_player_score % 10);
 
-  matrix.blinkRate(game_over ? BLINK_RATE_FAST : BLINK_RATE_NONE);
+  display.blinkRate(game_over ? BLINK_RATE_FAST : BLINK_RATE_NONE);
 
-  matrix.writeDisplay();
+  display.writeDisplay();
 }
 
 /**
