@@ -3,7 +3,10 @@ badminton_scoreboard
 
 An Arduino sketch for keeping score in a game of badminton.
 
-Uses the Adafruit Simple RF M4 Receiver - 315MHz Momentary Type (http://www.adafruit.com/products/1096), and associated keyfobs, and the Adafruit 1.2" 4-Digit 7-Segment Display w/I2C Backpack (http://www.adafruit.com/products/1268).
+Uses:
+* Simple RF M4 Receiver - 315MHz Momentary Type (http://www.adafruit.com/products/1096).
+* Keyfob 4-Button RF Remote Control - 315MHz (http://www.adafruit.com/products/1095).
+* 1.2" 4-Digit 7-Segment Display w/I2C Backpack (http://www.adafruit.com/products/1268).
 
 Controls:
 * Keyfob A button: left player + 1
