@@ -1,4 +1,4 @@
-badminton-scoreboard
+badminton_scoreboard
 ====================
 
 An Arduino sketch for keeping score in a game of badminton.
