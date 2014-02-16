@@ -27,14 +27,16 @@ typedef enum DotType {
   TOP_LEFT_DOT_TYPE = 1 << 2,
   BOTTOM_LEFT_DOT_TYPE = 1 << 3,
   BETWEEN_DIGITS_3_AND_4_DOT_TYPE = 1 << 4
-} DotType;
+} 
+DotType;
 
 typedef enum BlinkRate {
   BLINK_RATE_NONE = 0,
   BLINK_RATE_FAST = 1,
   BLINK_RATE_MEDIUM = 2,
   BLINK_RATE_SLOW = 3
-} BlinkRate;
+} 
+BlinkRate;
 
 static const uint8_t DISPLAY_I2C_ADDRESS = 0x70;
 static const uint8_t MAXIMUM_BRIGHTNESS = 15;
@@ -107,40 +109,36 @@ void handle_button_press() {
 
   const bool any_pressed = a_pressed || b_pressed || c_pressed || d_pressed;
 
+  if (!any_pressed) {
+    return;
+  }
+
   if (game_over) {
-    // The game is over. Any key press will reset the score back to 0-0.
-    if (any_pressed) {
-      // Reset the scores (game_over will be recomputed by update_game_over).
-      left_player_score = 0;
-      right_player_score = 0;
-    }
-  } else {
+    // Reset the scores (game_over will be recomputed by update_game_over).
+    left_player_score = 0;
+    right_player_score = 0;
+  } 
+  else {
     // In a game, so each key press has its own meaning.
     if (a_pressed) {
-      left_player_score ++;
+      left_player_score++;
     }
 
     if (b_pressed) {
-      right_player_score ++;
+      right_player_score++;
     }
 
-    if (c_pressed) {
-      if (left_player_score > 0) {
-        left_player_score --;
-      }
+    if (c_pressed && (left_player_score > 0)) {
+      left_player_score--;
     }
 
-    if (d_pressed) {
-      if (right_player_score > 0) {
-        right_player_score --;
-      }
+    if (d_pressed && (right_player_score > 0)) {
+      right_player_score--;
     }
   }
 
-  if (any_pressed) {
-    update_game_over();
-    update_display();
-  }
+  update_game_over();
+  update_display();
 }
 
 
@@ -182,4 +180,13 @@ void update_game_over() {
     (left_player_score == 30) ||
     (right_player_score == 30);
 }
+
+
+
+
+
+
+
+
+
 
