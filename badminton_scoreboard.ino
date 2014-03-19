@@ -21,22 +21,20 @@
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
 
-// The dot types should be defined in Adafuit_LEDBackpack.h but aren't.
+// The dot types really ought be defined in Adafuit_LEDBackpack.h, but they aren't.
 typedef enum DotType {
   CENTER_COLON_DOT_TYPE = 1 << 1,
   TOP_LEFT_DOT_TYPE = 1 << 2,
   BOTTOM_LEFT_DOT_TYPE = 1 << 3,
   BETWEEN_DIGITS_3_AND_4_DOT_TYPE = 1 << 4
-} 
-DotType;
+} DotType;
 
 typedef enum BlinkRate {
   BLINK_RATE_NONE = 0,
   BLINK_RATE_FAST = 1,
   BLINK_RATE_MEDIUM = 2,
   BLINK_RATE_SLOW = 3
-} 
-BlinkRate;
+} BlinkRate;
 
 static const uint8_t DISPLAY_I2C_ADDRESS = 0x70;
 static const uint8_t MAXIMUM_BRIGHTNESS = 15;
@@ -52,7 +50,11 @@ static const uint8_t B_PIN = 4; // M4 D2
 static const uint8_t C_PIN = 3; // M4 D1
 static const uint8_t D_PIN = 2; // M4 d0
 
-// Use debouncing of the keyfob pins via Bounce.
+static const uint8_t BEEP_PIN = 13; // Repurpose SCK for the piezo
+static const unsigned int BEEP_FREQUENCY = 4000;
+static const unsigned long BEEP_DURATION = 250;
+
+// Debounce the keyfob pins via Bounce.
 static Bounce a;
 static Bounce b;
 static Bounce c;
@@ -115,11 +117,13 @@ void handle_button_press() {
     return;
   }
 
+  tone(BEEP_PIN, BEEP_FREQUENCY, BEEP_DURATION);
+
   if (game_over) {
     // Reset the scores (game_over will be recomputed by update_game_over).
     left_player_score = 0;
     right_player_score = 0;
-  } 
+  }
   else {
     // In a game, so each key press has its own meaning.
     if (a_pressed) {
@@ -182,13 +186,4 @@ void update_game_over() {
     (left_player_score == 30) ||
     (right_player_score == 30);
 }
-
-
-
-
-
-
-
-
-
 
